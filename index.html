@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyBridge Services - Error</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* CSS Variables */
+        :root {
+            --primary-blue: #2874f0; /* A vibrant blue, common in e-commerce */
+            --primary-blue-dark: #1e5bb8;
+            --light-blue-bg: #eaf3ff; /* Light background for sections */
+            --dark-text: #333333;
+            --medium-text: #666666;
+            --light-text: #999999;
+            --white-bg: #ffffff;
+            --border-light: #e0e0e0;
+            --shadow-light: rgba(0, 0, 0, 0.08);
+            --shadow-medium: rgba(0, 0, 0, 0.12);
+            --shadow-strong: rgba(0, 0, 0, 0.2);
+            --border-radius: 8px;
+            --transition-speed-fast: 0.2s ease-out;
+            --transition-speed-medium: 0.3s ease-out;
+            --transition-speed-slow: 0.4s ease-out;
+            --error-red: #dc3545; /* Standard red for errors */
+        }
+
+        /* Base Styles & Typography */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-text);
+            background-color: var(--light-blue-bg);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden; /* Prevent horizontal scroll from animations */
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 25px;
+        }
+
+        /* Helper Classes */
+        .text-center { text-align: center; }
+        .mb-20 { margin-bottom: 20px; }
+        .mb-40 { margin-bottom: 40px; }
+        .mb-60 { margin-bottom: 60px; }
+
+        /* Keyframe Animations */
+        @keyframes fadeInSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* --- Header --- */
+        .header {
+            background-color: var(--white-bg);
+            padding: 18px 0;
+            box-shadow: 0 2px 10px var(--shadow-light);
+            animation: fadeIn 0.6s ease-out; /* Added animation */
+        }
+
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-group {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* Align text to the left */
+        }
+
+        .logo {
+            font-size: 1.9em;
+            font-weight: 700;
+            color: var(--primary-blue);
+            line-height: 1.2; /* Adjust line height for multiple lines */
+        }
+
+        .sub-logo {
+            font-size: 0.85em;
+            color: var(--medium-text);
+            margin-top: 2px;
+        }
+
+        .main-nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        .main-nav ul li {
+            margin-left: 35px;
+        }
+
+        .main-nav ul li a {
+            text-decoration: none;
+            color: var(--dark-text);
+            font-weight: 500;
+            font-size: 0.98em;
+            position: relative;
+            padding-bottom: 5px;
+            transition: color var(--transition-speed-medium);
+        }
+
+        .main-nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary-blue);
+            transition: width var(--transition-speed-medium); /* Smoother underline */
+        }
+
+        .main-nav ul li a:hover {
+            color: var(--primary-blue);
+        }
+
+        .main-nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        .auth-buttons a {
+            text-decoration: none;
+            color: var(--dark-text);
+            font-weight: 500;
+            margin-left: 20px;
+            padding: 8px 15px;
+            border-radius: var(--border-radius);
+            transition: background-color var(--transition-speed-medium), color var(--transition-speed-medium), transform var(--transition-speed-fast); /* Added transform */
+        }
+
+        .auth-buttons .btn-login {
+            border: 1px solid var(--primary-blue);
+            color: var(--primary-blue);
+        }
+
+        .auth-buttons .btn-login:hover {
+            background-color: var(--primary-blue);
+            color: var(--white-bg);
+            transform: translateY(-2px); /* Lift effect */
+        }
+
+        .auth-buttons .btn-signup {
+            background-color: var(--primary-blue);
+            color: var(--white-bg);
+        }
+
+        .auth-buttons .btn-signup:hover {
+            background-color: var(--primary-blue-dark);
+            transform: translateY(-2px); /* Lift effect */
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            background: linear-gradient(135deg, rgba(40, 116, 240, 0.9), rgba(40, 116, 240, 0.7)), url('https://via.placeholder.com/1800x600?text=Explore+the+World') no-repeat center center/cover;
+            color: white;
+            padding: 80px 0 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+            margin-bottom: 50px;
+        }
+
+        .hero h2 {
+            font-size: 3.2em;
+            margin-bottom: 15px;
+            font-weight: 700;
+            text-shadow: 0 3px 6px rgba(0,0,0,0.25);
+            opacity: 0; /* Initial state for animation */
+            animation: fadeInSlideUp 0.8s var(--transition-speed-slow) forwards;
+            animation-delay: 0.3s;
+        }
+
+        .hero p {
+            font-size: 1.3em;
+            font-weight: 300;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            opacity: 0; /* Initial state for animation */
+            animation: fadeInSlideUp 0.8s var(--transition-speed-slow) forwards;
+            animation-delay: 0.5s;
+        }
+
+        .booking-card {
+            background-color: var(--white-bg);
+            padding: 35px 45px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 30px var(--shadow-medium);
+            max-width: 960px;
+            margin: 0 auto;
+            text-align: left;
+            position: relative;
+            z-index: 10;
+            opacity: 0; /* Initial state for animation */
+            transform: translateY(30px); /* Initial state for animation */
+            animation: fadeInSlideUp 1s var(--transition-speed-slow) forwards;
+            animation-delay: 0.7s;
+            transition: box-shadow var(--transition-speed-medium); /* Added transition for shadow */
+        }
+
+        .booking-card:hover {
+            box-shadow: 0 15px 40px var(--shadow-strong); /* More pronounced shadow on hover */
+        }
+
+        .trip-type-tabs {
+            display: flex;
+            margin-bottom: 25px;
+            border-bottom: 1px solid var(--border-light);
+            padding-bottom: 10px;
+        }
+
+        .trip-type-tabs label {
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--medium-text);
+            border-bottom: 3px solid transparent;
+            transition: color var(--transition-speed-medium), border-color var(--transition-speed-medium); /* Smoother transitions */
+        }
+
+        .trip-type-tabs input[type="radio"] {
+            display: none;
+        }
+
+        .trip-type-tabs input[type="radio"]:checked + label {
+            color: var(--primary-blue);
+            border-color: var(--primary-blue);
+        }
+
+        .booking-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            align-items: flex-end;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .form-group label {
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark-text);
+            font-size: 0.9em;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 14px 15px 14px 45px; /* Adjust padding for icon */
+            border: 1px solid var(--border-light);
+            border-radius: var(--border-radius);
+            font-size: 1em;
+            color: var(--dark-text);
+            background-color: #fcfcfc;
+            transition: border-color var(--transition-speed-medium), box-shadow var(--transition-speed-medium); /* Smoother transitions */
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: var(--primary-blue);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(40, 116, 240, 0.25); /* More prominent glow */
+        }
+
+        .form-group .icon {
+            position: absolute;
+            left: 15px;
+            top: 45px; /* Adjust based on label height */
+            color: var(--light-text);
+            font-size: 1.1em;
+            pointer-events: none; /* Make icon not interfere with input click */
+        }
+
+        .btn-search {
+            grid-column: span 1;
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 15px 25px;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: background-color var(--transition-speed-medium), transform var(--transition-speed-fast); /* Smoother transitions */
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-search:hover {
+            background-color: var(--primary-blue-dark);
+            transform: translateY(-2px); /* Lift effect */
+        }
+
+        .btn-search:active {
+            transform: translateY(0) scale(0.98); /* Press down effect */
+            background-color: var(--primary-blue-dark);
+        }
+
+        /* --- Featured Section --- */
+        .section-heading, .section-subheading {
+            opacity: 0;
+            animation: fadeInSlideUp 0.8s var(--transition-speed-slow) forwards;
+            animation-delay: 1.2s; /* Delay for content sections */
+        }
+
+        .section-subheading {
+            animation-delay: 1.3s;
+        }
+
+        .featured-destinations {
+            padding: 60px 0;
+            background-color: var(--white-bg);
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 20px var(--shadow-light);
+            margin-bottom: 50px;
+        }
+
+        .destination-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .destination-card {
+            background-color: #fdfdfd;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            transition: transform var(--transition-speed-medium), box-shadow var(--transition-speed-medium);
+            opacity: 0; /* Initial state for animation */
+            animation: fadeInSlideUp 0.8s var(--transition-speed-slow) forwards;
+            /* Staggering animation delay for grid items */
+            /* This needs JS or manual delays per item for true staggering.
+               For this example, we'll apply a general delay */
+            animation-delay: 1.5s;
+        }
+        /* Manual staggering for demonstration (in a real app, use JS observer) */
+        .destination-card:nth-child(2) { animation-delay: 1.6s; }
+        .destination-card:nth-child(3) { animation-delay: 1.7s; }
+        .destination-card:nth-child(4) { animation-delay: 1.8s; }
+
+
+        .destination-card:hover {
+            transform: translateY(-8px); /* More pronounced lift */
+            box-shadow: 0 10px 30px var(--shadow-medium); /* Stronger shadow */
+        }
+
+        .destination-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+            transition: transform var(--transition-speed-medium); /* Added image zoom transition */
+        }
+
+        .destination-card:hover img {
+            transform: scale(1.05); /* Slight zoom on image hover */
+        }
+
+        .destination-info {
+            padding: 20px;
+        }
+
+        .destination-info h4 {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin-bottom: 8px;
+        }
+
+        .destination-info p {
+            color: var(--medium-text);
+            font-size: 0.95em;
+            margin-bottom: 15px;
+        }
+
+        .destination-info .price {
+            font-size: 1.4em;
+            font-weight: 700;
+            color: var(--dark-text);
+            margin-top: 10px;
+            display: block;
+        }
+
+        .destination-info .price small {
+            font-size: 0.7em;
+            font-weight: 400;
+            color: var(--light-text);
+        }
+
+        /* --- Benefits/Trust Section --- */
+        .why-choose-us {
+            padding: 60px 0;
+            background-color: var(--light-blue-bg);
+            margin-bottom: 60px;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+
+        .benefit-item {
+            background-color: var(--white-bg);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 3px 15px var(--shadow-light);
+            transition: transform var(--transition-speed-medium), box-shadow var(--transition-speed-medium);
+            opacity: 0; /* Initial state for animation */
+            animation: fadeInSlideUp 0.8s var(--transition-speed-slow) forwards;
+            animation-delay: 1.9s; /* Delay for this section */
+        }
+        /* Manual staggering for benefit items */
+        .benefit-item:nth-child(2) { animation-delay: 2.0s; }
+        .benefit-item:nth-child(3) { animation-delay: 2.1s; }
+        .benefit-item:nth-child(4) { animation-delay: 2.2s; }
+
+        .benefit-item:hover {
+            transform: translateY(-8px); /* More pronounced lift */
+            box-shadow: 0 10px 25px var(--shadow-medium); /* Stronger shadow */
+        }
+
+        .benefit-item .icon {
+            font-size: 2.8em;
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+            transition: transform var(--transition-speed-fast); /* Add transition to icon */
+        }
+
+        .benefit-item:hover .icon {
+            transform: scale(1.1); /* Slight icon scale on hover */
+        }
+
+        .benefit-item h4 {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: var(--dark-text);
+            margin-bottom: 10px;
+        }
+
+        .benefit-item p {
+            color: var(--medium-text);
+            font-size: 0.9em;
+        }
+
+        /* --- Footer --- */
+        .footer {
+            background-color: var(--dark-text);
+            color: var(--light-text);
+            padding: 40px 0;
+            font-size: 0.9em;
+            opacity: 0;
+            animation: fadeIn 1s ease-out forwards;
+            animation-delay: 2.5s; /* Delay for footer */
+        }
+
+        .footer .container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .footer-column h5 {
+            color: var(--white-bg);
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: var(--light-text);
+            text-decoration: none;
+            transition: color var(--transition-speed-medium);
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--primary-blue);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #444;
+            padding-top: 25px;
+            margin-top: 40px;
+            text-align: center;
+            color: var(--light-text);
+        }
+
+        .social-icons a {
+            color: var(--light-text);
+            font-size: 1.5em;
+            margin: 0 10px;
+            transition: color var(--transition-speed-medium), transform var(--transition-speed-fast); /* Added transform */
+        }
+
+        .social-icons a:hover {
+            color: var(--primary-blue);
+            transform: scale(1.2) rotate(5deg); /* Bounce and slight rotate */
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 1024px) {
+            .booking-card {
+                padding: 30px;
+            }
+            .booking-form {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+            .hero h2 {
+                font-size: 2.8em;
+            }
+            .hero p {
+                font-size: 1.2em;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header .container {
+                flex-direction: column;
+            }
+            .logo-group {
+                align-items: center; /* Center align logo group on small screens */
+            }
+            .main-nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                margin-top: 15px;
+            }
+            .main-nav ul li {
+                margin: 0 15px 10px;
+            }
+            .auth-buttons {
+                margin-top: 15px;
+                display: flex;
+                gap: 10px;
+            }
+            .auth-buttons a {
+                flex: 1;
+                text-align: center;
+            }
+
+            .hero {
+                padding: 60px 0 80px;
+            }
+            .hero h2 {
+                font-size: 2.2em;
+            }
+            .hero p {
+                font-size: 1em;
+            }
+
+            .booking-card {
+                padding: 25px;
+            }
+            .trip-type-tabs {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            .trip-type-tabs label {
+                padding: 8px 15px;
+            }
+
+            .booking-form {
+                grid-template-columns: 1fr; /* Stack vertically on small screens */
+            }
+            .btn-search {
+                margin-top: 15px;
+            }
+
+            .section-heading {
+                font-size: 1.8em;
+            }
+            .section-subheading {
+                font-size: 0.95em;
+                margin-bottom: 30px;
+            }
+
+            .destination-grid, .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+            .destination-card, .benefit-item {
+                margin-bottom: 20px;
+            }
+
+            .footer .container {
+                flex-direction: column;
+                text-align: center;
+            }
+            .footer-column {
+                margin-bottom: 30px;
+            }
+            .footer-column:last-child {
+                margin-bottom: 0;
+            }
+            .footer-column ul {
+                padding: 0;
+            }
+            .social-icons {
+                margin-top: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+            .hero h2 {
+                font-size: 1.8em;
+            }
+            .booking-card {
+                padding: 20px;
+            }
+            .form-group input,
+            .form-group select {
+                padding-left: 40px;
+            }
+            .form-group .icon {
+                font-size: 1em;
+                left: 12px;
+                top: 44px;
+            }
+            .btn-search {
+                padding: 12px 20px;
+                font-size: 1em;
+            }
+        }
+
+        /* --- Error Overlay and Modal Styles --- */
+        .body-blurred {
+            filter: blur(5px); /* Apply blur to everything inside body */
+            pointer-events: none; /* Disable interaction with blurred content */
+            transition: filter 0.5s ease-out; /* Smooth transition for blur */
+        }
+
+        .error-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent dark background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999; /* Ensure it's on top of everything */
+            opacity: 0; /* Start hidden */
+            animation: fadeIn 0.5s ease-out forwards; /* Fade in animation */
+            animation-delay: 0.2s; /* Slight delay after page load */
+            pointer-events: all; /* Allow interaction with the modal */
+        }
+
+        .error-modal {
+            background-color: var(--white-bg);
+            border-radius: var(--border-radius);
+            box-shadow: 0 15px 40px var(--shadow-strong);
+            padding: 40px;
+            text-align: center;
+            max-width: 450px;
+            width: 90%;
+            transform: translateY(-20px); /* Initial state for modal animation */
+            animation: fadeInSlideUp 0.6s ease-out forwards; /* Slide up and fade in */
+            animation-delay: 0.4s;
+            position: relative; /* For the icon positioning */
+            border-top: 8px solid var(--error-red); /* Strong error indicator */
+        }
+
+        .error-modal .icon {
+            font-size: 3.5em;
+            color: var(--error-red);
+            margin-bottom: 20px;
+        }
+
+        .error-modal h3 {
+            font-size: 1.8em;
+            color: var(--error-red);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .error-modal p {
+            font-size: 1.1em;
+            color: var(--dark-text);
+            margin-bottom: 25px;
+        }
+
+        .error-modal .message-detail {
+            font-size: 0.9em;
+            color: var(--medium-text);
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div id="main-content">
+        <header class="header">
+            <div class="container">
+                <div class="logo-group">
+                    <h1 class="logo">SkyBridge Services</h1>
+                    <p class="sub-logo">A B2C Ticketing Solution</p>
+                </div>
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="#">Flights</a></li>
+                        <li><a href="#">Hotels</a></li>
+                        <li><a href="#">Cabs</a></li>
+                        <li><a href="#">Holidays</a></li>
+                        <li><a href="#">Offers</a></li>
+                    </ul>
+                </nav>
+                <div class="auth-buttons">
+                    <a href="#" class="btn-login">Login</a>
+                    <a href="#" class="btn-signup">Sign Up</a>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <section class="hero">
+                <div class="container">
+                    <h2>Your Global Journey, Simplified.</h2>
+                    <p>Discover incredible destinations and book your next adventure with ease.</p>
+
+                    <div class="booking-card">
+                        <div class="trip-type-tabs">
+                            <input type="radio" id="round-trip" name="trip-type" checked>
+                            <label for="round-trip">Round Trip</label>
+
+                            <input type="radio" id="one-way" name="trip-type">
+                            <label for="one-way">One-Way</label>
+
+                            <input type="radio" id="multi-city" name="trip-type">
+                            <label for="multi-city">Multi-City</label>
+                        </div>
+
+                        <form class="booking-form">
+                            <div class="form-group">
+                                <label for="origin">Origin</label>
+                                <span class="icon"><i class="fas fa-plane-departure"></i></span>
+                                <input type="text" id="origin" placeholder="e.g., New York" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="destination">Destination</label>
+                                <span class="icon"><i class="fas fa-plane-arrival"></i></span>
+                                <input type="text" id="destination" placeholder="e.g., London" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="departure-date">Departure Date</label>
+                                <span class="icon"><i class="fas fa-calendar-alt"></i></span>
+                                <input type="date" id="departure-date" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="return-date">Return Date</label>
+                                <span class="icon"><i class="fas fa-calendar-alt"></i></span>
+                                <input type="date" id="return-date">
+                            </div>
+                            <div class="form-group">
+                                <label for="passengers-num">Passengers</label>
+                                <span class="icon"><i class="fas fa-users"></i></span>
+                                <select id="passengers-num">
+                                    <option value="1">1 Adult</option>
+                                    <option value="2">2 Adults</option>
+                                    <option value="3">3 Adults</option>
+                                    <option value="4">4 Adults</option>
+                                    <option value="5+">5 Adults</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn-search">
+                                <i class="fas fa-search"></i> Search Tickets
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <section class="featured-destinations container mb-60">
+                <h3 class="section-heading text-center">Popular Destinations</h3>
+                <p class="section-subheading text-center">Explore top-rated cities and discover amazing deals for your next adventure.</p>
+
+                <div class="destination-grid">
+                    <div class="destination-card">
+                        <img src="https://via.placeholder.com/400x250?text=Paris" alt="Paris, France">
+                        <div class="destination-info">
+                            <h4>Paris, France</h4>
+                            <p>The City of Lights awaits! Experience romance, art, and exquisite cuisine.</p>
+                            <span class="price">From ₹35,000 <small>one-way</small></span>
+                        </div>
+                    </div>
+                    <div class="destination-card">
+                        <img src="https://via.placeholder.com/400x250?text=Tokyo" alt="Tokyo, Japan">
+                        <div class="destination-info">
+                            <h4>Tokyo, Japan</h4>
+                            <p>A vibrant blend of traditional culture and futuristic innovation.</p>
+                            <span class="price">From ₹42,000 <small>one-way</small></span>
+                        </div>
+                    </div>
+                    <div class="destination-card">
+                        <img src="https://via.placeholder.com/400x250?text=Dubai" alt="Dubai, UAE">
+                        <div class="destination-info">
+                            <h4>Dubai, UAE</h4>
+                            <p>Luxury shopping, ultramodern architecture, and a lively nightlife scene.</p>
+                            <span class="price">From ₹28,000 <small>one-way</small></span>
+                        </div>
+                    </div>
+                    <div class="destination-card">
+                        <img src="https://via.placeholder.com/400x250?text=Sydney" alt="Sydney, Australia">
+                        <div class="destination-info">
+                            <h4>Sydney, Australia</h4>
+                            <p>Iconic landmarks, beautiful beaches, and a thriving arts scene.</p>
+                            <span class="price">From ₹55,000 <small>one-way</small></span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="why-choose-us mb-60">
+                <div class="container">
+                    <h3 class="section-heading text-center">Why Choose SkyBridge Services?</h3>
+                    <p class="section-subheading text-center">We're committed to making your travel booking experience seamless, secure, and enjoyable.</p>
+
+                    <div class="benefits-grid">
+                        <div class="benefit-item">
+                            <div class="icon"><i class="fas fa-dollar-sign"></i></div>
+                            <h4>Best Prices Guaranteed</h4>
+                            <p>Find the most competitive fares and exclusive deals.</p>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="icon"><i class="fas fa-headset"></i></div>
+                            <h4>24/7 Customer Support</h4>
+                            <p>Our dedicated team is always here to assist you.</p>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="icon"><i class="fas fa-lock"></i></div>
+                            <h4>Secure Payments</h4>
+                            <p>Your transactions are safe with our encrypted payment gateway.</p>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="icon"><i class="fas fa-mobile-alt"></i></div>
+                            <h4>Easy Mobile Booking</h4>
+                            <p>Book on the go with our user-friendly mobile experience.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-column">
+                    <h5>SkyBridge Services</h5>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h5>Help & Support</h5>
+                    <ul>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Refund Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h5>Our Services</h5>
+                    <ul>
+                        <li><a href="#">Flight Booking</a></li>
+                        <li><a href="#">Hotel Booking</a></li>
+                        <li><a href="#">Cab Rentals</a></li>
+                        <li><a href="#">Holiday Packages</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h5>Connect With Us</h5>
+                    <div class="social-icons">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 SkyBridge Services. All rights reserved. | Made with ❤️ for Travelers</p>
+            </div>
+        </footer>
+    </div>
+
+    <div class="error-overlay">
+        <div class="error-modal">
+            <div class="icon"><i class="fas fa-exclamation-triangle"></i></div>
+            <h3>Too Many Requests</h3>
+            <p>We're currently experiencing a high volume of traffic. Please try again later.</p>
+            <p class="message-detail">Error code: 429</p>
+        </div>
+    </div>
+
+    <script>
+        // Immediately apply blur to the main content when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('main-content').classList.add('body-blurred');
+            // The modal and overlay are already visible by default due to CSS
+            // No need for JavaScript to explicitly show them for this effect
+        });
+    </script>
+</body>
+</html>
