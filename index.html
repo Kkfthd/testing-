@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkyBridge Services - Experiencing Delays</title>
+    <title>SkyBridge Services - Agent Login</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -20,7 +20,7 @@
             --shadow-light: rgba(0, 0, 0, 0.08);
             --shadow-medium: rgba(0, 0, 0, 0.12);
             --shadow-strong: rgba(0, 0, 0, 0.2);
-            --border-radius: 8px;
+            --border-radius: 10px; /* Slightly larger radius for softer look */
             --transition-speed-fast: 0.2s ease-out;
             --transition-speed-medium: 0.3s ease-out;
             --transition-speed-slow: 0.4s ease-out;
@@ -72,11 +72,6 @@
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
         }
 
         /* --- Header --- */
@@ -357,7 +352,7 @@
 
         .destination-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minminmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 25px;
         }
 
@@ -433,7 +428,7 @@
 
         .benefits-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minminmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
             text-align: center;
         }
@@ -554,7 +549,7 @@
                 padding: 30px;
             }
             .booking-form {
-                grid-template-columns: repeat(auto-fit, minminmax(200px, 1fr));
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             }
             .hero h2 {
                 font-size: 2.8em;
@@ -675,11 +670,24 @@
             }
         }
 
-        /* --- Overlay and Modal Styles for Freeze/Loading/Timeout --- */
+        /* --- Overlay and Modal Styles for Freeze/Agent Login/Timeout --- */
         #main-content.blurred {
             filter: blur(5px);
-            pointer-events: none; /* Disable interaction with blurred content */
+            /* Important: Keep pointer-events: none; here to disable clicks on blurred content */
+            pointer-events: none;
             transition: filter 0.5s ease-out;
+        }
+
+        /* This overlay prevents ALL interaction for the initial 3 seconds */
+        #initialBlockOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10000; /* Higher than other overlays */
+            background-color: transparent; /* Invisible, but blocks clicks */
+            display: block; /* Initially visible to block interaction */
         }
 
         .overlay {
@@ -688,7 +696,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.7); /* Darker background for more prominent modals */
+            background-color: rgba(0, 0, 0, 0.75); /* Slightly darker for better contrast */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -714,7 +722,7 @@
             width: 90%;
             transform: translateY(-20px);
             opacity: 0;
-            transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+            transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.5s ease-out; /* More dynamic entry */
         }
 
         .overlay.active .modal {
@@ -722,79 +730,140 @@
             opacity: 1;
         }
 
-        /* Loading Modal Specifics */
-        #loading-modal {
-            border-top: 8px solid var(--info-blue);
+        /* Agent Login Modal Specifics */
+        #agent-login-modal {
+            border-top: 8px solid var(--primary-blue);
+            padding: 50px 40px; /* More vertical padding */
         }
 
-        #loading-modal .icon {
-            font-size: 3.5em;
-            color: var(--info-blue);
-            margin-bottom: 20px;
-            animation: spin 1.5s linear infinite;
-        }
-
-        #loading-modal h3 {
-            font-size: 1.8em;
+        #agent-login-modal h3 {
+            font-size: 2em; /* Slightly larger heading */
             color: var(--dark-text);
-            margin-bottom: 15px;
+            margin-bottom: 30px; /* More space */
             font-weight: 700;
         }
 
-        #loading-modal p {
-            font-size: 1.1em;
-            color: var(--medium-text);
-            margin-bottom: 25px;
+        #agent-login-modal .login-form-group {
+            margin-bottom: 25px; /* More spacing between fields */
+            text-align: left;
+            position: relative;
         }
 
-        #loading-modal .message-detail {
-            font-size: 0.9em;
-            color: var(--light-text);
-            font-style: italic;
+        #agent-login-modal .login-form-group label {
+            display: block;
+            margin-bottom: 10px; /* More space for label */
+            font-weight: 600; /* Bolder label */
+            color: var(--dark-text);
+            font-size: 0.98em;
         }
+
+        #agent-login-modal .login-form-group input {
+            width: 100%;
+            padding: 15px 20px; /* Larger padding for inputs */
+            border: 1px solid var(--border-light);
+            border-radius: 8px; /* Slightly smaller radius for inputs */
+            font-size: 1.05em; /* Slightly larger text in inputs */
+            color: var(--dark-text);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        #agent-login-modal .login-form-group input:focus {
+            border-color: var(--primary-blue);
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(40, 116, 240, 0.25); /* More prominent focus ring */
+        }
+
+        #agent-login-modal button {
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 15px 30px; /* Larger button */
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 1.1em; /* Larger text in button */
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            width: 100%;
+            margin-top: 20px; /* More space above button */
+        }
+
+        #agent-login-modal button:hover {
+            background-color: var(--primary-blue-dark);
+            transform: translateY(-2px);
+        }
+        #agent-login-modal button:active {
+            transform: translateY(0);
+        }
+
+        #agent-login-modal .rights-address {
+            font-size: 0.85em; /* Slightly larger for readability */
+            color: var(--medium-text); /* Darker for better contrast */
+            margin-top: 40px; /* More space at the bottom */
+            line-height: 1.6;
+        }
+
+        .error-message {
+            color: var(--error-red);
+            font-size: 0.9em;
+            margin-top: 15px;
+            font-weight: 500;
+            display: none; /* Hidden by default */
+            animation: fadeIn 0.4s ease-out;
+        }
+        .error-message.active {
+            display: block;
+        }
+
 
         /* Timeout Modal Specifics */
         #timeout-modal {
-            border-top: 8px solid var(--error-red); /* Red for error/timeout */
+            border-top: 8px solid var(--error-red);
+            padding: 50px 40px; /* Consistent padding with login modal */
         }
 
         #timeout-modal .icon {
-            font-size: 3.5em;
+            font-size: 3.8em; /* Slightly larger icon */
             color: var(--error-red);
-            margin-bottom: 20px;
+            margin-bottom: 25px; /* More space */
         }
 
         #timeout-modal h3 {
-            font-size: 1.8em;
+            font-size: 2em; /* Consistent heading size */
             color: var(--dark-text);
             margin-bottom: 15px;
             font-weight: 700;
         }
 
         #timeout-modal p {
-            font-size: 1.1em;
+            font-size: 1.05em; /* Consistent body text size */
             color: var(--medium-text);
-            margin-bottom: 25px;
+            margin-bottom: 30px; /* More space */
         }
 
         #timeout-modal button {
             background-color: var(--primary-blue);
             color: white;
-            padding: 12px 25px;
+            padding: 15px 30px; /* Consistent button size */
             border: none;
             border-radius: var(--border-radius);
             cursor: pointer;
-            font-size: 1em;
+            font-size: 1.1em;
             font-weight: 600;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, transform 0.2s ease;
         }
 
         #timeout-modal button:hover {
             background-color: var(--primary-blue-dark);
+            transform: translateY(-2px);
+        }
+        #timeout-modal button:active {
+            transform: translateY(0);
         }
     </style>
 </head>
 <body>
+    <div id="initialBlockOverlay"></div>
+
     <div id="main-content">
         <header class="header">
             <div class="container">
@@ -992,20 +1061,36 @@
         </footer>
     </div>
 
-    <div id="loadingOverlay" class="overlay">
-        <div id="loading-modal" class="modal">
-            <div class="icon"><i class="fas fa-spinner"></i></div>
-            <h3>Please Wait</h3>
-            <p>Thank you for your patience! We're experiencing heavy traffic.</p>
-            <p class="message-detail">Your request is being processed.</p>
+    <div id="agentLoginOverlay" class="overlay">
+        <div id="agent-login-modal" class="modal">
+            <h3>Agent Login</h3>
+            <form id="agentLoginForm">
+                <div class="login-form-group">
+                    <label for="agentId">Agent ID</label>
+                    <input type="text" id="agentId" name="agentId" placeholder="Enter your Agent ID" required>
+                </div>
+                <div class="login-form-group">
+                    <label for="agentPassword">Password</label>
+                    <input type="password" id="agentPassword" name="agentPassword" placeholder="Enter your Password" required>
+                </div>
+                <button type="submit">Login</button>
+                <div id="loginErrorMessage" class="error-message">
+                    Wrong credentials, contact the IT department.
+                </div>
+            </form>
+            <div class="rights-address">
+                <p>&copy; 2025 SkyBridge Services. All rights reserved.</p>
+                <p>Registered Office: Paradise Lane, George Town,<br>Grand Cayman, KY1-9008</p>
+            </div>
         </div>
     </div>
 
     <div id="timeoutOverlay" class="overlay">
         <div id="timeout-modal" class="modal">
-            <div class="icon"><i class="fas fa-frown"></i></div> <h3>Connection Timed Out</h3>
+            <div class="icon"><i class="fas fa-frown"></i></div>
+            <h3>Connection Timed Out</h3>
             <p>
-                It looks like your connection to our server has timed out. This might be due to a slow internet connection or high server load.
+                It looks like your connection to our server has timed out. Please check your internet connection or try again.
             </p>
             <button id="refreshButton">Refresh Page</button>
         </div>
@@ -1014,30 +1099,47 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const mainContent = document.getElementById('main-content');
-            const loadingOverlay = document.getElementById('loadingOverlay');
+            const initialBlockOverlay = document.getElementById('initialBlockOverlay');
+            const agentLoginOverlay = document.getElementById('agentLoginOverlay');
+            const agentLoginForm = document.getElementById('agentLoginForm');
+            const loginErrorMessage = document.getElementById('loginErrorMessage');
             const timeoutOverlay = document.getElementById('timeoutOverlay');
             const refreshButton = document.getElementById('refreshButton');
 
-            const LOADING_DELAY = 3000; // 3 seconds
-            const TIMEOUT_DURATION = 10 * 60 * 1000; // 10 minutes in milliseconds
+            const INITIAL_CLICK_BLOCK_DURATION = 3000; // 3 seconds for full page block
+            const LOGIN_BOX_APPEAR_DELAY = 2000;       // 2 seconds for login box to appear
+            const TIMEOUT_DURATION = 2 * 60 * 1000;    // 2 minutes for session timeout
 
             let timeoutTimer;
 
-            // Function to show the loading screen
-            function showLoadingScreen() {
+            // Step 1: Immediately block all clicks on the page
+            initialBlockOverlay.style.display = 'block';
+
+            // Step 2: Show the agent login screen and blur after LOGIN_BOX_APPEAR_DELAY
+            setTimeout(() => {
                 mainContent.classList.add('blurred');
-                loadingOverlay.classList.add('active');
-                console.log('Loading screen activated.');
+                agentLoginOverlay.classList.add('active');
+                console.log('Agent login screen activated and main content blurred.');
 
-                // Start the timeout timer
+                // Start the timeout timer for the timeout popup after login appears
                 timeoutTimer = setTimeout(showTimeoutPopup, TIMEOUT_DURATION);
-                console.log(`Timeout initiated for ${TIMEOUT_DURATION / 1000 / 60} minutes.`);
-            }
+                console.log(`Timeout initiated for ${TIMEOUT_DURATION / 1000} seconds (${TIMEOUT_DURATION / 1000 / 60} minutes).`);
+            }, LOGIN_BOX_APPEAR_DELAY);
 
-            // Function to show the timeout popup
+            // Step 3: Remove the initial click-blocking overlay after INITIAL_CLICK_BLOCK_DURATION
+            // This is crucial to allow interaction with the login box itself after 3 seconds
+            setTimeout(() => {
+                initialBlockOverlay.style.display = 'none';
+                console.log('Initial click blocking removed.');
+            }, INITIAL_CLICK_BLOCK_DURATION);
+
+
+            // Function to show the simulated timeout popup
             function showTimeoutPopup() {
-                loadingOverlay.classList.remove('active'); // Hide loading
-                timeoutOverlay.classList.add('active');   // Show timeout
+                agentLoginOverlay.classList.remove('active'); // Hide agent login
+                timeoutOverlay.classList.add('active');       // Show timeout popup
+                // Ensure main content remains blurred/disabled if desired, or re-enable it
+                // mainContent.classList.remove('blurred'); // Uncomment to unblur if timeout is final state
                 console.log('Connection Timeout popup displayed.');
             }
 
@@ -1049,8 +1151,36 @@
             // Add event listener for the refresh button
             refreshButton.addEventListener('click', refreshPage);
 
-            // Trigger the loading screen after 3 seconds
-            setTimeout(showLoadingScreen, LOADING_DELAY);
+            // Handle login form submission: Always show wrong credentials error
+            agentLoginForm.addEventListener('submit', (event) => {
+                event.preventDefault(); // Prevent default form submission
+                console.log('Login attempt made.');
+                loginErrorMessage.classList.add('active'); // Show error message
+
+                // In a real application, you would send data to a server for authentication:
+                // fetch('/api/login', {
+                //     method: 'POST',
+                //     headers: { 'Content-Type': 'application/json' },
+                //     body: JSON.stringify({
+                //         agentId: document.getElementById('agentId').value,
+                //         password: document.getElementById('agentPassword').value
+                //     })
+                // })
+                // .then(response => response.json())
+                // .then(data => {
+                //     if (data.success) {
+                //         agentLoginOverlay.classList.remove('active');
+                //         mainContent.classList.remove('blurred');
+                //         clearTimeout(timeoutTimer); // Stop the timeout if user logs in
+                //     } else {
+                //         loginErrorMessage.classList.add('active');
+                //     }
+                // })
+                // .catch(error => {
+                //     console.error('Login error:', error);
+                //     loginErrorMessage.classList.add('active');
+                // });
+            });
         });
     </script>
 </body>
