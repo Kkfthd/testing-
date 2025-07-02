@@ -1075,8 +1075,7 @@
                 </div>
                 <button type="submit">Login</button>
                 <div id="loginErrorMessage" class="error-message">
-                    Wrong credentials, contact the IT department.
-                </div>
+                    </div>
             </form>
             <div class="rights-address">
                 <p>&copy; 2025 SkyBridge Services. All rights reserved.</p>
@@ -1151,35 +1150,62 @@
             // Add event listener for the refresh button
             refreshButton.addEventListener('click', refreshPage);
 
-            // Handle login form submission: Always show wrong credentials error
+            // Handle login form submission: Now sends a fetch request to Netlify Function
             agentLoginForm.addEventListener('submit', (event) => {
                 event.preventDefault(); // Prevent default form submission
-                console.log('Login attempt made.');
-                loginErrorMessage.classList.add('active'); // Show error message
 
-                // In a real application, you would send data to a server for authentication:
-                // fetch('/api/login', {
-                //     method: 'POST',
-                //     headers: { 'Content-Type': 'application/json' },
-                //     body: JSON.stringify({
-                //         agentId: document.getElementById('agentId').value,
-                //         password: document.getElementById('agentPassword').value
-                //     })
-                // })
-                // .then(response => response.json())
-                // .then(data => {
-                //     if (data.success) {
-                //         agentLoginOverlay.classList.remove('active');
-                //         mainContent.classList.remove('blurred');
-                //         clearTimeout(timeoutTimer); // Stop the timeout if user logs in
-                //     } else {
-                //         loginErrorMessage.classList.add('active');
-                //     }
-                // })
-                // .catch(error => {
-                //     console.error('Login error:', error);
-                //     loginErrorMessage.classList.add('active');
-                // });
+                const agentId = document.getElementById('agentId').value;
+                const agentPassword = document.getElementById('agentPassword').value;
+                const loginButton = agentLoginForm.querySelector('button[type="submit"]');
+
+                // Clear previous errors and disable button during fetch
+                loginErrorMessage.classList.remove('active');
+                loginErrorMessage.textContent = '';
+                loginButton.disabled = true; // Disable button to prevent multiple submissions
+
+                console.log('Login attempt made. Sending request to Netlify Function.');
+
+                // *** IMPORTANT: Use the relative path for Netlify Functions ***
+                const functionUrl = '/.netlify/functions/login';
+
+                fetch(functionUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ agentId, agentPassword })
+                })
+                .then(response => {
+                    // Netlify functions return JSON. We need to parse it even if it's an error status.
+                    return response.json().then(data => ({
+                        status: response.status,
+                        ok: response.ok,
+                        data: data
+                    }));
+                })
+                .then(({ status, ok, data }) => {
+                    if (!ok) {
+                        // Handles 401 Unauthorized from the Netlify Function
+                        loginErrorMessage.textContent = data.message || 'Login failed. Please try again.';
+                        loginErrorMessage.classList.add('active');
+                    } else {
+                        // This block would run if the function returned a 200 OK (e.g., if you
+                        // later change the function to allow specific credentials)
+                        alert('Login successful! (This message should not appear with current dummy function)');
+                        // If successfully logged in, you would typically hide the modal and clear the timeout:
+                        // agentLoginOverlay.classList.remove('active');
+                        // mainContent.classList.remove('blurred');
+                        // clearTimeout(timeoutTimer);
+                    }
+                })
+                .catch(error => {
+                    console.error('Network or unexpected error:', error);
+                    loginErrorMessage.textContent = 'A network error occurred. Please check your connection.';
+                    loginErrorMessage.classList.add('active');
+                })
+                .finally(() => {
+                    loginButton.disabled = false; // Re-enable button
+                });
             });
         });
     </script>
