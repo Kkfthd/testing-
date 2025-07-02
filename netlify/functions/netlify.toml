@@ -1,1 +1,10 @@
+# YOUR_REPO_ROOT/netlify.toml
+[build]
+  # This specifies the directory where your main site files (index.html, CSS, JS) are located.
+  # If your index.html is directly in the root of your repo, use ".".
+  # If it's in a subfolder like "public" or "dist", change this accordingly (e.g., "public").
+  publish = "."
 
+  # This tells Netlify where to find your serverless functions.
+  # Make sure this path matches the folder you created (netlify/functions).
+  functions = "netlify/functions"
