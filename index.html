@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkyBridge Services - Error</title>
+    <title>SkyBridge Services - Experiencing Delays</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         /* CSS Variables */
         :root {
-            --primary-blue: #2874f0; /* A vibrant blue, common in e-commerce */
+            --primary-blue: #2874f0;
             --primary-blue-dark: #1e5bb8;
-            --light-blue-bg: #eaf3ff; /* Light background for sections */
+            --light-blue-bg: #eaf3ff;
             --dark-text: #333333;
             --medium-text: #666666;
             --light-text: #999999;
@@ -24,7 +24,8 @@
             --transition-speed-fast: 0.2s ease-out;
             --transition-speed-medium: 0.3s ease-out;
             --transition-speed-slow: 0.4s ease-out;
-            --error-red: #dc3545; /* Standard red for errors */
+            --error-red: #dc3545;
+            --info-blue: #007bff;
         }
 
         /* Base Styles & Typography */
@@ -41,7 +42,7 @@
             background-color: var(--light-blue-bg);
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-            overflow-x: hidden; /* Prevent horizontal scroll from animations */
+            overflow-x: hidden;
         }
 
         .container {
@@ -73,12 +74,17 @@
             to { opacity: 1; }
         }
 
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
         /* --- Header --- */
         .header {
             background-color: var(--white-bg);
             padding: 18px 0;
             box-shadow: 0 2px 10px var(--shadow-light);
-            animation: fadeIn 0.6s ease-out; /* Added animation */
+            animation: fadeIn 0.6s ease-out;
         }
 
         .header .container {
@@ -90,14 +96,14 @@
         .logo-group {
             display: flex;
             flex-direction: column;
-            align-items: flex-start; /* Align text to the left */
+            align-items: flex-start;
         }
 
         .logo {
             font-size: 1.9em;
             font-weight: 700;
             color: var(--primary-blue);
-            line-height: 1.2; /* Adjust line height for multiple lines */
+            line-height: 1.2;
         }
 
         .sub-logo {
@@ -133,7 +139,7 @@
             bottom: 0;
             left: 0;
             background-color: var(--primary-blue);
-            transition: width var(--transition-speed-medium); /* Smoother underline */
+            transition: width var(--transition-speed-medium);
         }
 
         .main-nav ul li a:hover {
@@ -151,7 +157,7 @@
             margin-left: 20px;
             padding: 8px 15px;
             border-radius: var(--border-radius);
-            transition: background-color var(--transition-speed-medium), color var(--transition-speed-medium), transform var(--transition-speed-fast); /* Added transform */
+            transition: background-color var(--transition-speed-medium), color var(--transition-speed-medium), transform var(--transition-speed-fast);
         }
 
         .auth-buttons .btn-login {
@@ -162,7 +168,7 @@
         .auth-buttons .btn-login:hover {
             background-color: var(--primary-blue);
             color: var(--white-bg);
-            transform: translateY(-2px); /* Lift effect */
+            transform: translateY(-2px);
         }
 
         .auth-buttons .btn-signup {
@@ -172,7 +178,7 @@
 
         .auth-buttons .btn-signup:hover {
             background-color: var(--primary-blue-dark);
-            transform: translateY(-2px); /* Lift effect */
+            transform: translateY(-2px);
         }
 
         /* --- Hero Section --- */
@@ -193,7 +199,7 @@
             margin-bottom: 15px;
             font-weight: 700;
             text-shadow: 0 3px 6px rgba(0,0,0,0.25);
-            opacity: 0; /* Initial state for animation */
+            opacity: 0;
             animation: fadeInSlideUp 0.8s var(--transition-speed-slow) forwards;
             animation-delay: 0.3s;
         }
@@ -203,7 +209,7 @@
             font-weight: 300;
             margin-bottom: 40px;
             opacity: 0.9;
-            opacity: 0; /* Initial state for animation */
+            opacity: 0;
             animation: fadeInSlideUp 0.8s var(--transition-speed-slow) forwards;
             animation-delay: 0.5s;
         }
@@ -218,15 +224,15 @@
             text-align: left;
             position: relative;
             z-index: 10;
-            opacity: 0; /* Initial state for animation */
-            transform: translateY(30px); /* Initial state for animation */
+            opacity: 0;
+            transform: translateY(30px);
             animation: fadeInSlideUp 1s var(--transition-speed-slow) forwards;
             animation-delay: 0.7s;
-            transition: box-shadow var(--transition-speed-medium); /* Added transition for shadow */
+            transition: box-shadow var(--transition-speed-medium);
         }
 
         .booking-card:hover {
-            box-shadow: 0 15px 40px var(--shadow-strong); /* More pronounced shadow on hover */
+            box-shadow: 0 15px 40px var(--shadow-strong);
         }
 
         .trip-type-tabs {
@@ -242,7 +248,7 @@
             font-weight: 600;
             color: var(--medium-text);
             border-bottom: 3px solid transparent;
-            transition: color var(--transition-speed-medium), border-color var(--transition-speed-medium); /* Smoother transitions */
+            transition: color var(--transition-speed-medium), border-color var(--transition-speed-medium);
         }
 
         .trip-type-tabs input[type="radio"] {
@@ -277,29 +283,29 @@
         .form-group input,
         .form-group select {
             width: 100%;
-            padding: 14px 15px 14px 45px; /* Adjust padding for icon */
+            padding: 14px 15px 14px 45px;
             border: 1px solid var(--border-light);
             border-radius: var(--border-radius);
             font-size: 1em;
             color: var(--dark-text);
             background-color: #fcfcfc;
-            transition: border-color var(--transition-speed-medium), box-shadow var(--transition-speed-medium); /* Smoother transitions */
+            transition: border-color var(--transition-speed-medium), box-shadow var(--transition-speed-medium);
         }
 
         .form-group input:focus,
         .form-group select:focus {
             border-color: var(--primary-blue);
             outline: none;
-            box-shadow: 0 0 0 3px rgba(40, 116, 240, 0.25); /* More prominent glow */
+            box-shadow: 0 0 0 3px rgba(40, 116, 240, 0.25);
         }
 
         .form-group .icon {
             position: absolute;
             left: 15px;
-            top: 45px; /* Adjust based on label height */
+            top: 45px;
             color: var(--light-text);
             font-size: 1.1em;
-            pointer-events: none; /* Make icon not interfere with input click */
+            pointer-events: none;
         }
 
         .btn-search {
@@ -312,7 +318,7 @@
             cursor: pointer;
             font-size: 1.1em;
             font-weight: 600;
-            transition: background-color var(--transition-speed-medium), transform var(--transition-speed-fast); /* Smoother transitions */
+            transition: background-color var(--transition-speed-medium), transform var(--transition-speed-fast);
             width: 100%;
             display: flex;
             align-items: center;
@@ -322,11 +328,11 @@
 
         .btn-search:hover {
             background-color: var(--primary-blue-dark);
-            transform: translateY(-2px); /* Lift effect */
+            transform: translateY(-2px);
         }
 
         .btn-search:active {
-            transform: translateY(0) scale(0.98); /* Press down effect */
+            transform: translateY(0) scale(0.98);
             background-color: var(--primary-blue-dark);
         }
 
@@ -334,7 +340,7 @@
         .section-heading, .section-subheading {
             opacity: 0;
             animation: fadeInSlideUp 0.8s var(--transition-speed-slow) forwards;
-            animation-delay: 1.2s; /* Delay for content sections */
+            animation-delay: 1.2s;
         }
 
         .section-subheading {
@@ -351,7 +357,7 @@
 
         .destination-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minminmax(280px, 1fr));
             gap: 25px;
         }
 
@@ -361,22 +367,18 @@
             overflow: hidden;
             box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
             transition: transform var(--transition-speed-medium), box-shadow var(--transition-speed-medium);
-            opacity: 0; /* Initial state for animation */
+            opacity: 0;
             animation: fadeInSlideUp 0.8s var(--transition-speed-slow) forwards;
-            /* Staggering animation delay for grid items */
-            /* This needs JS or manual delays per item for true staggering.
-               For this example, we'll apply a general delay */
             animation-delay: 1.5s;
         }
-        /* Manual staggering for demonstration (in a real app, use JS observer) */
         .destination-card:nth-child(2) { animation-delay: 1.6s; }
         .destination-card:nth-child(3) { animation-delay: 1.7s; }
         .destination-card:nth-child(4) { animation-delay: 1.8s; }
 
 
         .destination-card:hover {
-            transform: translateY(-8px); /* More pronounced lift */
-            box-shadow: 0 10px 30px var(--shadow-medium); /* Stronger shadow */
+            transform: translateY(-8px);
+            box-shadow: 0 10px 30px var(--shadow-medium);
         }
 
         .destination-card img {
@@ -384,11 +386,11 @@
             height: 180px;
             object-fit: cover;
             display: block;
-            transition: transform var(--transition-speed-medium); /* Added image zoom transition */
+            transition: transform var(--transition-speed-medium);
         }
 
         .destination-card:hover img {
-            transform: scale(1.05); /* Slight zoom on image hover */
+            transform: scale(1.05);
         }
 
         .destination-info {
@@ -431,7 +433,7 @@
 
         .benefits-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minminmax(280px, 1fr));
             gap: 30px;
             text-align: center;
         }
@@ -442,29 +444,28 @@
             border-radius: var(--border-radius);
             box-shadow: 0 3px 15px var(--shadow-light);
             transition: transform var(--transition-speed-medium), box-shadow var(--transition-speed-medium);
-            opacity: 0; /* Initial state for animation */
+            opacity: 0;
             animation: fadeInSlideUp 0.8s var(--transition-speed-slow) forwards;
-            animation-delay: 1.9s; /* Delay for this section */
+            animation-delay: 1.9s;
         }
-        /* Manual staggering for benefit items */
         .benefit-item:nth-child(2) { animation-delay: 2.0s; }
         .benefit-item:nth-child(3) { animation-delay: 2.1s; }
         .benefit-item:nth-child(4) { animation-delay: 2.2s; }
 
         .benefit-item:hover {
-            transform: translateY(-8px); /* More pronounced lift */
-            box-shadow: 0 10px 25px var(--shadow-medium); /* Stronger shadow */
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px var(--shadow-medium);
         }
 
         .benefit-item .icon {
             font-size: 2.8em;
             color: var(--primary-blue);
             margin-bottom: 15px;
-            transition: transform var(--transition-speed-fast); /* Add transition to icon */
+            transition: transform var(--transition-speed-fast);
         }
 
         .benefit-item:hover .icon {
-            transform: scale(1.1); /* Slight icon scale on hover */
+            transform: scale(1.1);
         }
 
         .benefit-item h4 {
@@ -487,7 +488,7 @@
             font-size: 0.9em;
             opacity: 0;
             animation: fadeIn 1s ease-out forwards;
-            animation-delay: 2.5s; /* Delay for footer */
+            animation-delay: 2.5s;
         }
 
         .footer .container {
@@ -539,12 +540,12 @@
             color: var(--light-text);
             font-size: 1.5em;
             margin: 0 10px;
-            transition: color var(--transition-speed-medium), transform var(--transition-speed-fast); /* Added transform */
+            transition: color var(--transition-speed-medium), transform var(--transition-speed-fast);
         }
 
         .social-icons a:hover {
             color: var(--primary-blue);
-            transform: scale(1.2) rotate(5deg); /* Bounce and slight rotate */
+            transform: scale(1.2) rotate(5deg);
         }
 
         /* --- Responsive Design --- */
@@ -553,7 +554,7 @@
                 padding: 30px;
             }
             .booking-form {
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                grid-template-columns: repeat(auto-fit, minminmax(200px, 1fr));
             }
             .hero h2 {
                 font-size: 2.8em;
@@ -568,7 +569,7 @@
                 flex-direction: column;
             }
             .logo-group {
-                align-items: center; /* Center align logo group on small screens */
+                align-items: center;
             }
             .main-nav ul {
                 flex-wrap: wrap;
@@ -610,7 +611,7 @@
             }
 
             .booking-form {
-                grid-template-columns: 1fr; /* Stack vertically on small screens */
+                grid-template-columns: 1fr;
             }
             .btn-search {
                 margin-top: 15px;
@@ -674,31 +675,36 @@
             }
         }
 
-        /* --- Error Overlay and Modal Styles --- */
-        .body-blurred {
-            filter: blur(5px); /* Apply blur to everything inside body */
+        /* --- Overlay and Modal Styles for Freeze/Loading/Timeout --- */
+        #main-content.blurred {
+            filter: blur(5px);
             pointer-events: none; /* Disable interaction with blurred content */
-            transition: filter 0.5s ease-out; /* Smooth transition for blur */
+            transition: filter 0.5s ease-out;
         }
 
-        .error-overlay {
+        .overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent dark background */
+            background-color: rgba(0, 0, 0, 0.7); /* Darker background for more prominent modals */
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 9999; /* Ensure it's on top of everything */
-            opacity: 0; /* Start hidden */
-            animation: fadeIn 0.5s ease-out forwards; /* Fade in animation */
-            animation-delay: 0.2s; /* Slight delay after page load */
-            pointer-events: all; /* Allow interaction with the modal */
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden; /* Start hidden */
+            transition: opacity 0.5s ease-out, visibility 0s linear 0.5s; /* Smooth fade, then hide after fade */
         }
 
-        .error-modal {
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.5s ease-out, visibility 0s linear 0s; /* Show immediately, then fade */
+        }
+
+        .modal {
             background-color: var(--white-bg);
             border-radius: var(--border-radius);
             box-shadow: 0 15px 40px var(--shadow-strong);
@@ -706,36 +712,85 @@
             text-align: center;
             max-width: 450px;
             width: 90%;
-            transform: translateY(-20px); /* Initial state for modal animation */
-            animation: fadeInSlideUp 0.6s ease-out forwards; /* Slide up and fade in */
-            animation-delay: 0.4s;
-            position: relative; /* For the icon positioning */
-            border-top: 8px solid var(--error-red); /* Strong error indicator */
+            transform: translateY(-20px);
+            opacity: 0;
+            transition: transform 0.5s ease-out, opacity 0.5s ease-out;
         }
 
-        .error-modal .icon {
+        .overlay.active .modal {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Loading Modal Specifics */
+        #loading-modal {
+            border-top: 8px solid var(--info-blue);
+        }
+
+        #loading-modal .icon {
+            font-size: 3.5em;
+            color: var(--info-blue);
+            margin-bottom: 20px;
+            animation: spin 1.5s linear infinite;
+        }
+
+        #loading-modal h3 {
+            font-size: 1.8em;
+            color: var(--dark-text);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        #loading-modal p {
+            font-size: 1.1em;
+            color: var(--medium-text);
+            margin-bottom: 25px;
+        }
+
+        #loading-modal .message-detail {
+            font-size: 0.9em;
+            color: var(--light-text);
+            font-style: italic;
+        }
+
+        /* Timeout Modal Specifics */
+        #timeout-modal {
+            border-top: 8px solid var(--error-red); /* Red for error/timeout */
+        }
+
+        #timeout-modal .icon {
             font-size: 3.5em;
             color: var(--error-red);
             margin-bottom: 20px;
         }
 
-        .error-modal h3 {
+        #timeout-modal h3 {
             font-size: 1.8em;
-            color: var(--error-red);
+            color: var(--dark-text);
             margin-bottom: 15px;
             font-weight: 700;
         }
 
-        .error-modal p {
+        #timeout-modal p {
             font-size: 1.1em;
-            color: var(--dark-text);
+            color: var(--medium-text);
             margin-bottom: 25px;
         }
 
-        .error-modal .message-detail {
-            font-size: 0.9em;
-            color: var(--medium-text);
-            font-style: italic;
+        #timeout-modal button {
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        #timeout-modal button:hover {
+            background-color: var(--primary-blue-dark);
         }
     </style>
 </head>
@@ -749,16 +804,16 @@
                 </div>
                 <nav class="main-nav">
                     <ul>
-                        <li><a href="#">Flights</a></li>
-                        <li><a href="#">Hotels</a></li>
-                        <li><a href="#">Cabs</a></li>
-                        <li><a href="#">Holidays</a></li>
-                        <li><a href="#">Offers</a></li>
+                        <li><a href="#flights">Flights</a></li>
+                        <li><a href="#hotels">Hotels</a></li>
+                        <li><a href="#cabs">Cabs</a></li>
+                        <li><a href="#holidays">Holidays</a></li>
+                        <li><a href="#offers">Offers</a></li>
                     </ul>
                 </nav>
                 <div class="auth-buttons">
-                    <a href="#" class="btn-login">Login</a>
-                    <a href="#" class="btn-signup">Sign Up</a>
+                    <a href="#login" class="btn-login">Login</a>
+                    <a href="#signup" class="btn-signup">Sign Up</a>
                 </div>
             </div>
         </header>
@@ -810,7 +865,7 @@
                                     <option value="2">2 Adults</option>
                                     <option value="3">3 Adults</option>
                                     <option value="4">4 Adults</option>
-                                    <option value="5+">5 Adults</option>
+                                    <option value="5">5 Adults</option>
                                 </select>
                             </div>
                             <button type="submit" class="btn-search">
@@ -821,47 +876,47 @@
                 </div>
             </section>
 
-            <section class="featured-destinations container mb-60">
+            <section id="popular-destinations" class="featured-destinations container mb-60">
                 <h3 class="section-heading text-center">Popular Destinations</h3>
                 <p class="section-subheading text-center">Explore top-rated cities and discover amazing deals for your next adventure.</p>
 
                 <div class="destination-grid">
                     <div class="destination-card">
-                        <img src="https://via.placeholder.com/400x250?text=Paris" alt="Paris, France">
+                        <img src="https://via.placeholder.com/400x250?text=Paris" alt="Eiffel Tower and Seine River in Paris, France">
                         <div class="destination-info">
                             <h4>Paris, France</h4>
                             <p>The City of Lights awaits! Experience romance, art, and exquisite cuisine.</p>
-                            <span class="price">From ₹35,000 <small>one-way</small></span>
+                            <span class="price">From **$450** <small>one-way</small></span>
                         </div>
                     </div>
                     <div class="destination-card">
-                        <img src="https://via.placeholder.com/400x250?text=Tokyo" alt="Tokyo, Japan">
+                        <img src="https://via.placeholder.com/400x250?text=Tokyo" alt="Tokyo cityscape with Mount Fuji in the background, Japan">
                         <div class="destination-info">
                             <h4>Tokyo, Japan</h4>
                             <p>A vibrant blend of traditional culture and futuristic innovation.</p>
-                            <span class="price">From ₹42,000 <small>one-way</small></span>
+                            <span class="price">From **$550** <small>one-way</small></span>
                         </div>
                     </div>
                     <div class="destination-card">
-                        <img src="https://via.placeholder.com/400x250?text=Dubai" alt="Dubai, UAE">
+                        <img src="https://via.placeholder.com/400x250?text=Dubai" alt="Burj Khalifa and Dubai skyline, UAE">
                         <div class="destination-info">
                             <h4>Dubai, UAE</h4>
                             <p>Luxury shopping, ultramodern architecture, and a lively nightlife scene.</p>
-                            <span class="price">From ₹28,000 <small>one-way</small></span>
+                            <span class="price">From **$380** <small>one-way</small></span>
                         </div>
                     </div>
                     <div class="destination-card">
-                        <img src="https://via.placeholder.com/400x250?text=Sydney" alt="Sydney, Australia">
+                        <img src="https://via.placeholder.com/400x250?text=Sydney" alt="Sydney Opera House and Harbour Bridge, Australia">
                         <div class="destination-info">
                             <h4>Sydney, Australia</h4>
                             <p>Iconic landmarks, beautiful beaches, and a thriving arts scene.</p>
-                            <span class="price">From ₹55,000 <small>one-way</small></span>
+                            <span class="price">From **$720** <small>one-way</small></span>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section class="why-choose-us mb-60">
+            <section id="why-choose-us" class="why-choose-us mb-60">
                 <div class="container">
                     <h3 class="section-heading text-center">Why Choose SkyBridge Services?</h3>
                     <p class="section-subheading text-center">We're committed to making your travel booking experience seamless, secure, and enjoyable.</p>
@@ -897,37 +952,37 @@
                 <div class="footer-column">
                     <h5>SkyBridge Services</h5>
                     <ul>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#about-us">About Us</a></li>
+                        <li><a href="#careers">Careers</a></li>
+                        <li><a href="#blog">Blog</a></li>
+                        <li><a href="#contact-us">Contact Us</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
                     <h5>Help & Support</h5>
                     <ul>
-                        <li><a href="#">FAQ</a></li>
-                        <li><a href="#">Terms & Conditions</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Refund Policy</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#terms">Terms & Conditions</a></li>
+                        <li><a href="#privacy">Privacy Policy</a></li>
+                        <li><a href="#refund">Refund Policy</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
                     <h5>Our Services</h5>
                     <ul>
-                        <li><a href="#">Flight Booking</a></li>
-                        <li><a href="#">Hotel Booking</a></li>
-                        <li><a href="#">Cab Rentals</a></li>
-                        <li><a href="#">Holiday Packages</a></li>
+                        <li><a href="#flight-booking">Flight Booking</a></li>
+                        <li><a href="#hotel-booking">Hotel Booking</a></li>
+                        <li><a href="#cab-rentals">Cab Rentals</a></li>
+                        <li><a href="#holiday-packages">Holiday Packages</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
                     <h5>Connect With Us</h5>
                     <div class="social-icons">
-                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://facebook.com/skybridgeservices" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://twitter.com/skybridgeservices" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://instagram.com/skybridgeservices" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://linkedin.com/company/skybridgeservices" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>
             </div>
@@ -937,21 +992,65 @@
         </footer>
     </div>
 
-    <div class="error-overlay">
-        <div class="error-modal">
-            <div class="icon"><i class="fas fa-exclamation-triangle"></i></div>
-            <h3>Too Many Requests</h3>
-            <p>We're currently experiencing a high volume of traffic. Please try again later.</p>
-            <p class="message-detail">Error code: 429</p>
+    <div id="loadingOverlay" class="overlay">
+        <div id="loading-modal" class="modal">
+            <div class="icon"><i class="fas fa-spinner"></i></div>
+            <h3>Please Wait</h3>
+            <p>Thank you for your patience! We're experiencing heavy traffic.</p>
+            <p class="message-detail">Your request is being processed.</p>
+        </div>
+    </div>
+
+    <div id="timeoutOverlay" class="overlay">
+        <div id="timeout-modal" class="modal">
+            <div class="icon"><i class="fas fa-frown"></i></div> <h3>Connection Timed Out</h3>
+            <p>
+                It looks like your connection to our server has timed out. This might be due to a slow internet connection or high server load.
+            </p>
+            <button id="refreshButton">Refresh Page</button>
         </div>
     </div>
 
     <script>
-        // Immediately apply blur to the main content when the page loads
         document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('main-content').classList.add('body-blurred');
-            // The modal and overlay are already visible by default due to CSS
-            // No need for JavaScript to explicitly show them for this effect
+            const mainContent = document.getElementById('main-content');
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            const timeoutOverlay = document.getElementById('timeoutOverlay');
+            const refreshButton = document.getElementById('refreshButton');
+
+            const LOADING_DELAY = 3000; // 3 seconds
+            const TIMEOUT_DURATION = 10 * 60 * 1000; // 10 minutes in milliseconds
+
+            let timeoutTimer;
+
+            // Function to show the loading screen
+            function showLoadingScreen() {
+                mainContent.classList.add('blurred');
+                loadingOverlay.classList.add('active');
+                console.log('Loading screen activated.');
+
+                // Start the timeout timer
+                timeoutTimer = setTimeout(showTimeoutPopup, TIMEOUT_DURATION);
+                console.log(`Timeout initiated for ${TIMEOUT_DURATION / 1000 / 60} minutes.`);
+            }
+
+            // Function to show the timeout popup
+            function showTimeoutPopup() {
+                loadingOverlay.classList.remove('active'); // Hide loading
+                timeoutOverlay.classList.add('active');   // Show timeout
+                console.log('Connection Timeout popup displayed.');
+            }
+
+            // Function to refresh the page
+            function refreshPage() {
+                location.reload(); // Reloads the current page
+            }
+
+            // Add event listener for the refresh button
+            refreshButton.addEventListener('click', refreshPage);
+
+            // Trigger the loading screen after 3 seconds
+            setTimeout(showLoadingScreen, LOADING_DELAY);
         });
     </script>
 </body>
